@@ -1,19 +1,24 @@
-name: Merge Repository Schedule
+name: Merge Article Schedule
 on:
-	pull_request:
-		types:
-			- opened
-			- edited
-	schedule:
-		- cron: 0 22 * * *
+  pull_request:
+    types:
+      - opened
+      - edited
+  schedule:
+    # 9AM PDT
+    - cron: 0 9 * * *
 
 jobs:
-	merge_schedule:
-		runs-on: ubuntu-latest
-		steps:
-			- uses: gr2m/merge-schedule-action@v1
-			  with:
-				merge_method: squash
-				time_zone: "Asia/Kolkata"
-			  env:
-				GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  merge_schedule:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: gr2m/merge-schedule-action@v1
+        with:
+          # Use squash instead of merge. Possible values are merge, squash or rebase.
+
+          merge_method: squash
+          # Use LA time zone (PDT) instead of UTC
+
+          time_zone: "America/Los_Angeles"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
