@@ -6,7 +6,7 @@ on:
       - edited
   schedule:
     # 9AM PDT
-    - cron: 0 9 * * *
+    - cron: 10 17 * * *
 
 jobs:
   merge_schedule:
@@ -14,11 +14,6 @@ jobs:
     steps:
       - uses: gr2m/merge-schedule-action@v1
         with:
-          # Use squash instead of merge. Possible values are merge, squash or rebase.
-
           merge_method: squash
-          # Use LA time zone (PDT) instead of UTC
-
-          time_zone: "America/Los_Angeles"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
