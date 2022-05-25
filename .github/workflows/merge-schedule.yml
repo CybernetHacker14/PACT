@@ -6,7 +6,7 @@ on:
       - edited
   schedule:
     # 9AM PDT
-    - cron: 10 17 * * *
+    - cron: 20 17 * * *
 
 jobs:
   merge_schedule:
