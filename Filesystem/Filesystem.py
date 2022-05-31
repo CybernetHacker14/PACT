@@ -34,28 +34,70 @@ class Filesystem:
         )
 
     @staticmethod
-    def GetAllFilepathsRecursively(root: str) -> list:
+    def HasSubfolders(path: str) -> bool:
+        return len(Filesystem.GetAllSubfolders(path)) != 0
+
+    @staticmethod
+    def GetImmediateSubfolders(path: str) -> list:
         return [
             os.path.abspath(f).replace("\\", "/")
-            for f in glob(f"{root}/**", recursive=True)
-            if os.path.isfile(f)
+            for f in glob(f"{path}/**", recursive=False)
+            if Filesystem.IsFolder(f)
         ]
 
     @staticmethod
-    def GetFilename(path: str) -> str:
+    def GetAllSubfolders(path: str) -> list:
+        return [
+            os.path.abspath(f).replace("\\", "/")
+            for f in glob(f"{path}/**", recursive=True)
+            if Filesystem.IsFolder(f)
+        ]
+
+    @staticmethod
+    def GetImmediateSubfilepaths(path: str) -> list:
+        return [
+            os.path.abspath(f).replace("\\", "/")
+            for f in glob(f"{path}/**", recursive=False)
+            if Filesystem.IsFile(f)
+        ]
+
+    @staticmethod
+    def GetAllSubfilepaths(path: str) -> list:
+        return [
+            os.path.abspath(f).replace("\\", "/")
+            for f in glob(f"{path}/**", recursive=True)
+            if Filesystem.IsFile(f)
+        ]
+
+    @staticmethod
+    def HasExtension(path: str) -> bool:
+        if pathlib.Path(path).suffix:
+            return True
+        return False
+
+    @staticmethod
+    def GetFilenameWithoutExtension(path: str) -> str:
+        return pathlib.Path(path).stem
+
+    @staticmethod
+    def GetFilenameWithExtension(path: str) -> str:
         return pathlib.Path(path).name
 
     @staticmethod
-    def GetFilenames(paths: list) -> list:
-        return [Filesystem.GetFilename(path) for path in paths]
-
-    @staticmethod
-    def GetExtension(path: str) -> str:
+    def GetFilenameExtension(path: str) -> str:
         return pathlib.Path(path).suffix
 
     @staticmethod
-    def GetExtensions(paths: list) -> list:
-        return [Filesystem.GetExtension(path) for path in paths]
+    def GetFilenamesWithoutExtension(paths: list) -> list:
+        return [Filesystem.GetFilenameWithoutExtension(path) for path in paths]
+
+    @staticmethod
+    def GetFilenamesWithExtension(paths: list) -> list:
+        return [Filesystem.GetFilenameWithExtension(path) for path in paths]
+
+    @staticmethod
+    def GetFilenameExtensions(paths: list) -> list:
+        return [Filesystem.GetFilenameExtension(path) for path in paths]
 
     @staticmethod
     def SearchForFile(filename: str, location: str):
