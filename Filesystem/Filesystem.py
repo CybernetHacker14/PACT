@@ -1,7 +1,9 @@
 from glob import glob
+from imp import source_from_cache
 import os
 import shutil
 import pathlib
+import subprocess
 
 
 class Filesystem:
@@ -108,14 +110,35 @@ class Filesystem:
 
         return None
 
+    @staticmethod  # Windows specific
+    def OpenAtPath(path: str):
+        if Filesystem.DoesPathExist(path):
+            os.startfile(Filesystem.GetAbsolutePath(path))
+
     @staticmethod
-    def MoveFile(source: str, destination: str):
-        if os.path.isfile(source):
-            os.makedirs(os.path.abspath(destination), exist_ok=True)
+    def DeleteAtPath(path: str):
+        if Filesystem.DoesPathExist(path):
+            if Filesystem.IsFile(path):
+                os.remove(Filesystem.GetAbsolutePath(path))
+            elif Filesystem.IsFolder(path):
+                shutil.rmtree(Filesystem.GetAbsolutePath(path))
+
+    @staticmethod
+    def MoveAtPath(source: str, destination: str):
+        if (
+            Filesystem.DoesPathExist(source)
+            and Filesystem.IsFile(source)
+            and Filesystem.IsFolder(destination)
+        ):
+            os.makedirs(Filesystem.GetAbsolutePath(destination), exist_ok=True)
             shutil.move(source, destination)
 
     @staticmethod
-    def CopyFile(source: str, destination: str):
-        if os.path.isfile(source):
-            os.makedirs(os.path.abspath(destination), exist_ok=True)
+    def CopyAtPath(source: str, destination: str):
+        if (
+            Filesystem.DoesPathExist(source)
+            and Filesystem.IsFile(source)
+            and Filesystem.IsFolder(destination)
+        ):
+            os.makedirs(Filesystem.GetAbsolutePath(destination), exist_ok=True)
             shutil.copy2(source, destination)
