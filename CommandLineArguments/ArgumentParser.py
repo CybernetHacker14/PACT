@@ -49,9 +49,9 @@ class ArgumentParser:
         elif argumentType == ArgumentType.FLAG_FALSE:
             self.parser.add_argument(argument, action="store_false", help=description)
 
-    def ProcessArguments(self, testArguments=None):
+    def ProcessArguments(self, testArguments: str = None):
         if not testArguments is None:
-            self.args = self.parser.parse_args(testArguments)
+            self.args = self.parser.parse_args(testArguments.split())
         else:
             self.args = self.parser.parse_args()
         self.config = vars(self.args)
