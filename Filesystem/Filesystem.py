@@ -1,15 +1,13 @@
 from glob import glob
-from imp import source_from_cache
 import os
 import shutil
 import pathlib
-import subprocess
 
 
 class Filesystem:
     @staticmethod
     def GetAbsolutePath(path: str) -> str:
-        return os.path.abspath(path)
+        return os.path.abspath(path).replace("\\", "/")
 
     @staticmethod
     def DoesPathExist(path: str) -> bool:
