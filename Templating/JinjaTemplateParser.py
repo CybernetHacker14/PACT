@@ -1,8 +1,8 @@
 import os
 import webbrowser
 
-from ..Templating.JinjaTemplateLoader import JinjaTemplateLoader as Loader
-from ..Filesystem.Filesystem import Filesystem
+from Templating.JinjaTemplateLoader import JinjaTemplateLoader as Loader
+from Filesystem.Filesystem import Filesystem
 
 
 class JinjaTemplateParser:
