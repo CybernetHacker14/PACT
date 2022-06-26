@@ -22,8 +22,12 @@ class Filesystem:
         return os.path.isdir(Filesystem.GetAbsolutePath(path))
 
     @staticmethod
+    def GetDirectoryFromPath(path: str) -> str:
+        return os.path.dirname(Filesystem.GetAbsolutePath(path))
+
+    @staticmethod
     def CreateFolder(path: str) -> None:
-        os.makedirs(Filesystem.GetAbsolutePath(path), exist_ok=True)
+        os.makedirs(Filesystem.GetDirectoryFromPath(path), exist_ok=True)
 
     @staticmethod
     def IsFolderEmpty(path: str) -> None:
@@ -140,3 +144,15 @@ class Filesystem:
         ):
             os.makedirs(Filesystem.GetAbsolutePath(destination), exist_ok=True)
             shutil.copy2(source, destination)
+
+    @staticmethod
+    def WriteToFile(path: str, data: str):
+        Filesystem.CreateFolder(path)
+
+        with open(path, "w") as outfile:
+            outfile.write(data)
+
+    @staticmethod
+    def ReadFromFile(path: str) -> str:
+        with open(path) as data:
+            return data
