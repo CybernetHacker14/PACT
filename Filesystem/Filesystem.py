@@ -127,21 +127,13 @@ class Filesystem:
 
     @staticmethod
     def MoveAtPath(source: str, destination: str):
-        if (
-            Filesystem.DoesPathExist(source)
-            and Filesystem.IsFile(source)
-            and Filesystem.IsFolder(destination)
-        ):
+        if Filesystem.DoesPathExist(source) and Filesystem.IsFile(source):
             os.makedirs(Filesystem.GetAbsolutePath(destination), exist_ok=True)
             shutil.move(source, destination)
 
     @staticmethod
     def CopyAtPath(source: str, destination: str):
-        if (
-            Filesystem.DoesPathExist(source)
-            and Filesystem.IsFile(source)
-            and Filesystem.IsFolder(destination)
-        ):
+        if Filesystem.DoesPathExist(source) and Filesystem.IsFile(source):
             os.makedirs(Filesystem.GetAbsolutePath(destination), exist_ok=True)
             shutil.copy2(source, destination)
 
