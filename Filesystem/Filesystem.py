@@ -145,6 +145,9 @@ class Filesystem:
             outfile.write(data)
 
     @staticmethod
-    def ReadFromFile(path: str) -> str:
+    def ReadFromFile(path: str, ignoreNewLine: bool = False) -> str:
         with open(path) as data:
-            return data
+            if ignoreNewLine:
+                return data.read().replace("\n", "")
+            else:
+                return data.read()
