@@ -1,5 +1,6 @@
 import argparse
 from enum import Enum
+from Filesystem.Filesystem import Filesystem
 
 
 class ArgumentType(Enum):
@@ -56,3 +57,7 @@ class ArgumentParser:
             self.args = self.parser.parse_args()
         self.config = vars(self.args)
         return self.config
+
+    def ProcessArgumentsFromFile(self, filepath):
+        arguments = Filesystem.ReadFromFile(filepath)
+        return self.ProcessArguments(arguments)
