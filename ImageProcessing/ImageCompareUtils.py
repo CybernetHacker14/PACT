@@ -17,14 +17,14 @@ class ImageCompareUtils:
         return nonZeroB <= threshold and nonZeroG <= threshold and nonZeroR <= threshold
 
     @staticmethod
-    def GetDifferenceImage(image1Path: str, image2Path:str):
+    def GetDifferenceImage(image1Path: str, image2Path: str):
         img1 = cv2.imread(image1Path)
         img2 = cv2.imread(image2Path)
         absdiff = cv2.absdiff(img1, img2)
         gray = cv2.cvtColor(absdiff, cv2.COLOR_BGR2GRAY)
 
         for i in range(0, 3):
-            dilated = cv2.dilate(gray.copy(), None, iterations=i+1)
+            dilated = cv2.dilate(gray.copy(), None, iterations=i + 1)
 
         (temp, diff) = cv2.threshold(dilated, 3, 255, cv2.THRESH_BINARY)
 
