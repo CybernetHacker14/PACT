@@ -59,5 +59,5 @@ class ArgumentParser:
         return self.config
 
     def ProcessArgumentsFromFile(self, filepath):
-        arguments = Filesystem.ReadFromFile(filepath)
+        arguments = Filesystem.ReadFromFile(filepath, ignoreNewLine=True)
         return self.ProcessArguments(arguments)
