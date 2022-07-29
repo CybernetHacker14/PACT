@@ -44,3 +44,7 @@ class ImageMiscUtils:
         cv2.imshow(windowname, image)
         key = cv2.waitKey(0)
         return windowname, key
+
+    @staticmethod
+    def CloseImageWindow(windowName: str):
+        return cv2.destroyWindow(windowName)
